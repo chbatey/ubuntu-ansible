@@ -1,0 +1,39 @@
+---
+
+- hosts: m25-cassandra
+  remote_user: ubuntu
+  sudo: yes
+  vars:
+    cluster_name: Test Cluster
+    seeds: 10.79.134.173
+
+  tasks:
+  - name: install htop
+    apt: name=htop state=present
+
+  - name: install java
+    apt: name=openjdk-7-jre state=present update_cache=yes
+
+  - name: add cassandra debian repository
+    apt_repository: repo='deb http://www.apache.org/dist/cassandra/debian 20x main' state=present
+
+  - name: add the key for the cassandra debian repo
+    apt_key: keyserver=pgp.mit.edu id=F758CE318D77295D
+
+  - name: add the other key for cassandra
+    apt_key: keyserver=pgp.mit.edu id=2B5C1B00
+
+  - name: install cassandra
+    apt: name=cassandra state=present update_cache=yes
+
+  - name: override cassandra.yaml file
+    template: src=cassandra.yaml dest=/etc/cassandra/
+
+  - name: make sure cassandra is started
+    service: name=cassandra state=restarted
+
+  - name: download spark
+    get_url: url=http://d3kbcqa49mib13.cloudfront.net/spark-1.0.0-bin-hadoop2.tgz dest=/opt/
+
+  - name: unzip spark
+    unarchive: copy=no src=/opt/spark-1.0.0-bin-hadoop2.tgz  dest=/opt
