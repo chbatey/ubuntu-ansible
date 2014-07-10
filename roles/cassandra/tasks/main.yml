@@ -1,3 +1,6 @@
+- name: install java
+  apt: name=openjdk-7-jre state=present update_cache=yes
+
 - name: add cassandra debian repository
   apt_repository: repo='deb http://www.apache.org/dist/cassandra/debian 20x main' state=present
 

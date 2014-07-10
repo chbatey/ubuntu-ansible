@@ -5,14 +5,11 @@
   sudo: yes
   vars:
     cluster_name: Test Cluster
-    seeds: 10.79.134.173
+    seeds: 10.79.134.220
 
   tasks:
   - name: install htop
     apt: name=htop state=present
-
-  - name: install java
-    apt: name=openjdk-7-jre state=present update_cache=yes
 
   roles:
     - cassandra

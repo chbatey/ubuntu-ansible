@@ -8,4 +8,4 @@
   apt: name=opscenter state=present update_cache=yes
 
 - name: start opscenter
-  service: name=opsceterd state=started
+  service: name=opscenterd state=started
