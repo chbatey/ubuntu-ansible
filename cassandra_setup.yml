@@ -15,3 +15,17 @@
     - cassandra
     - opscenter
     - spark
+
+- hosts: spark-master
+  remote_user: ubuntu
+  sudo: yes
+  
+  tasks:
+  - name: override slaves file
+    template: src=spark-env.sh dest=/opt/spark-1.0.0-bin-hadoop2/conf/spark-env.sh
+
+  - name: override the slaves file om the master
+    template: src=slaves dest=/opt/spark-1.0.0-bin-hadoop2/conf/slaves
+
+  - name: start the master and all the salves
+    command: /opt/spark-1.0.0-bin-hadoop2/sbin/start-all.sh

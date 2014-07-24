@@ -1,0 +1,8 @@
+---
+
+- hosts: m25-cassandra
+  remote_user: ubuntu
+
+  tasks:
+  - name: copy spark jar to all the hosts
+    copy: src=/Users/chbatey/Workspace/ac-example-spark-usage/target/scala-2.10/something.jar dest=/home/ubuntu/spark-files/

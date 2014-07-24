@@ -1,0 +1,13 @@
+---
+
+- hosts: spark-master
+  remote_user: ubuntu
+  vars:
+    spark_version: spark-1.0.0-bin-hadoop2
+
+  tasks:
+  - name: make sure spark is stopped
+    command: /opt/{{ spark_version }}/sbin/stop-all.sh
+
+  - name: start spark up
+    command: /opt/{{ spark_version }}/sbin/start-all.sh
